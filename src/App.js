@@ -1,6 +1,8 @@
 import { Component } from "react";
 import Productos from "./components/Productos";
 import Layout from "./components/Layout";
+import Title from "./components/Title";
+import Navbar from "./components/Navbar";
 
 class App extends Component {
   state = {
@@ -9,14 +11,30 @@ class App extends Component {
       { name: "Arbeja", price: 2500, img: "./productos/arbejas.jpg" },
       { name: "Lechuga", price: 500, img: "./productos/lechuga.jpg" },
     ],
+    carro: [
+      { name: "Tomate", price: 1500, img: "./productos/tomate.jpg" },
+    ],
   };
 
+  agregarAlCarro = (producto) => {
+    return this.setState({
+      carro: this.state.carro.concat({
+        ...producto,
+        cantidad: 1,
+      })
+    })
+
+  }
+
   render() {
+    console.log(this.state.carro);
     return (
       <div>
+        <Navbar/>
         <Layout>
+          <Title/>
           <Productos
-            agregarAlCarro={() => console.log("no hace nada")}
+            agregarAlCarro={this.agregarAlCarro}
             productos={this.state.productos}
           />
         </Layout>
